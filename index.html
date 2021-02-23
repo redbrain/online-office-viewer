@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Online Office Viewer</title>
+        <style>body{margin:0}div{display:flex;height:10vh;width:100%;margin:0;padding:0;align-items:center;justify-content:center;flex-direction:column}iframe{display:block;margin:0;border:0;height:90vh;width:100%}</style>
+    </head>
+    <body>
+        <div><input type="file" id="file"></div>
+        <iframe id="viewer" srcdoc="<style>body{background-color:#D1D1D1}</style>"></iframe>
+        <script>
+            const file = document.getElementById('file');
+            const viewer = document.getElementById('viewer');
+            file.addEventListener('change', () => {
+                if (viewer.hasAttribute('srcdoc')) viewer.removeAttribute('srcdoc');
+                const fd = new FormData();
+                fd.append('file', file.files[0]);
+                fetch('https://file.io',{method:'POST',body:fd}).then(res=>res.json()).then(json=>viewer.src=`https://docs.google.com/viewerng/viewer?url=${json.link}&embedded=true`);
+            });
+        </script>
+    </body>
+</html>
