@@ -13,7 +13,7 @@
             const view = file => {
                 const url = "https://ppng.io/" + encodeURIComponent(file.name);
                 fetch(url, {method: "PUT", body: file});
-                window.open(`https://docs.google.com/viewerng/viewer?url=${encodeURIComponent(url)}&embedded=true`,"_blank");
+                setTimeout(window.open, 500, `https://docs.google.com/viewerng/viewer?url=${encodeURIComponent(url)}&embedded=true`, "_blank");
             };
             document.querySelector("input").addEventListener("change", evt => view(evt.target.files[0]));
             // document.querySelector("div").addEventListener("drop", evt => view(evt.dataTransfer.files[0]));
